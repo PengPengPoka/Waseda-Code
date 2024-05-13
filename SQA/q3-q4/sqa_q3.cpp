@@ -13,6 +13,9 @@ int main(void){
     if(x > 0 && y > 0){
         z = 100;
     }
+    else{
+        z=10;
+    }
 
     printf("z value value {%d}",z);
 }
