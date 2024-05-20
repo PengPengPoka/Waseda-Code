@@ -30,3 +30,9 @@ int main(void){
         printf("NG");
     }
 }
+
+// EQ testing
+// valid
+// 1. score -> act <= 36
+//          -> gpa <= 4.0
+//          -> 10 * gpa + act >= 71
