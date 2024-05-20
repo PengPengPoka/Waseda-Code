@@ -1,0 +1,215 @@
+Terminals unused in grammar
+
+    SYM_NONE
+
+
+Grammar
+
+    0 $accept: s $end
+
+    1 s: list
+
+    2 list: ε
+    3     | list expr SYM_CR
+
+    4 expr: term
+    5     | expr SYM_ADD term
+    6     | expr SYM_SUB term
+
+    7 term: prim_expr
+    8     | term SYM_MUL prim_expr
+    9     | term SYM_DIV prim_expr
+
+   10 prim_expr: SYM_INTEGER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    SYM_NONE (258)
+    SYM_ADD (259) 5
+    SYM_SUB (260) 6
+    SYM_MUL (261) 8
+    SYM_DIV (262) 9
+    SYM_CR (263) 3
+    SYM_INTEGER (264) 10
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    s (11)
+        on left: 1
+        on right: 0
+    list (12)
+        on left: 2 3
+        on right: 1 3
+    expr (13)
+        on left: 4 5 6
+        on right: 3 5 6
+    term (14)
+        on left: 7 8 9
+        on right: 4 5 6 8 9
+    prim_expr (15)
+        on left: 10
+        on right: 7 8 9
+
+
+State 0
+
+    0 $accept: • s $end
+
+    $default  reduce using rule 2 (list)
+
+    s     go to state 1
+    list  go to state 2
+
+
+State 1
+
+    0 $accept: s • $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 s: list •
+    3 list: list • expr SYM_CR
+
+    SYM_INTEGER  shift, and go to state 4
+
+    $default  reduce using rule 1 (s)
+
+    expr       go to state 5
+    term       go to state 6
+    prim_expr  go to state 7
+
+
+State 3
+
+    0 $accept: s $end •
+
+    $default  accept
+
+
+State 4
+
+   10 prim_expr: SYM_INTEGER •
+
+    $default  reduce using rule 10 (prim_expr)
+
+
+State 5
+
+    3 list: list expr • SYM_CR
+    5 expr: expr • SYM_ADD term
+    6     | expr • SYM_SUB term
+
+    SYM_ADD  shift, and go to state 8
+    SYM_SUB  shift, and go to state 9
+    SYM_CR   shift, and go to state 10
+
+
+State 6
+
+    4 expr: term •
+    8 term: term • SYM_MUL prim_expr
+    9     | term • SYM_DIV prim_expr
+
+    SYM_MUL  shift, and go to state 11
+    SYM_DIV  shift, and go to state 12
+
+    $default  reduce using rule 4 (expr)
+
+
+State 7
+
+    7 term: prim_expr •
+
+    $default  reduce using rule 7 (term)
+
+
+State 8
+
+    5 expr: expr SYM_ADD • term
+
+    SYM_INTEGER  shift, and go to state 4
+
+    term       go to state 13
+    prim_expr  go to state 7
+
+
+State 9
+
+    6 expr: expr SYM_SUB • term
+
+    SYM_INTEGER  shift, and go to state 4
+
+    term       go to state 14
+    prim_expr  go to state 7
+
+
+State 10
+
+    3 list: list expr SYM_CR •
+
+    $default  reduce using rule 3 (list)
+
+
+State 11
+
+    8 term: term SYM_MUL • prim_expr
+
+    SYM_INTEGER  shift, and go to state 4
+
+    prim_expr  go to state 15
+
+
+State 12
+
+    9 term: term SYM_DIV • prim_expr
+
+    SYM_INTEGER  shift, and go to state 4
+
+    prim_expr  go to state 16
+
+
+State 13
+
+    5 expr: expr SYM_ADD term •
+    8 term: term • SYM_MUL prim_expr
+    9     | term • SYM_DIV prim_expr
+
+    SYM_MUL  shift, and go to state 11
+    SYM_DIV  shift, and go to state 12
+
+    $default  reduce using rule 5 (expr)
+
+
+State 14
+
+    6 expr: expr SYM_SUB term •
+    8 term: term • SYM_MUL prim_expr
+    9     | term • SYM_DIV prim_expr
+
+    SYM_MUL  shift, and go to state 11
+    SYM_DIV  shift, and go to state 12
+
+    $default  reduce using rule 6 (expr)
+
+
+State 15
+
+    8 term: term SYM_MUL prim_expr •
+
+    $default  reduce using rule 8 (term)
+
+
+State 16
+
+    9 term: term SYM_DIV prim_expr •
+
+    $default  reduce using rule 9 (term)
