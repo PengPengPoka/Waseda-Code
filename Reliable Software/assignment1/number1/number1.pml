@@ -3,44 +3,43 @@
 
 int x = 10;
 int y = 0;
-bool execute = FALSE;
+bool execute_t1 = FALSE;
+bool execute_t2 = FALSE;
 
-active proctype thread1(){
+proctype thread1(){
     do 
-    :: (x!=y) -> atomic{
+    :: (x!=y) ->
             x=x-1;
             y=y+1;
-    }
     :: (x==y) -> break
     od
 
-    // assert(execute == TRUE)
-    execute = TRUE;
-    printf("state of thread 1 %d",execute)
+    execute_t1 = TRUE;
+    printf("state of thread 1 %d\n",execute_t1)
+    printf("x = %d, y = %d\n",x,y)
 }
 
-active proctype thread2(){
+proctype thread2(){
     do 
-    :: (x==y) -> atomic{
+    :: (x==y) ->
             x=8;
             y=2;
             break;
-    } (x!=y) -> skip
+    :: (x!=y) -> skip
     od
 
-    // assert(execute == TRUE)
-    execute = TRUE;
-    printf("state of thread 2 %d",execute)
+    execute_t2 = TRUE;
+    printf("state of thread 2 %d\n",execute_t2)
+    printf("x = %d, y = %d\n",x,y)
 }
 
 active proctype checkState(){
-	// do 
-    // :: (x==8 && y==2) -> break;
-    // :: (x==y && x==8 && y==2) -> break;
-    // :: (x == y && x != 8 && y != 2) -> break;
-    // od
+	do 
+    :: (x==8 && y==2) -> break;
+    :: (x==y && x == 5 && y == 5) -> break;
+    od
 
-    assert((x == 7 && y == 3) || (x == 10 && y == 0))
+    assert((x == 8 && y == 2) || (x == 5 && y == 5))
 }
 
 init{

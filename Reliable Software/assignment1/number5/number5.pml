@@ -2,7 +2,7 @@
 #define CLIENT 5
 
 mtype = {s,r};
-chan state = [0] of {mtype};
+chan state = [CLIENT] of {mtype, int};
 chan client_queue = [CLIENT] of {int}
 
 proctype semaphore(){
@@ -36,9 +36,8 @@ proctype client(int id){
 
 init{
     run semaphore();
-    run client(1);
-    run client(2);
-    run client(3);
-    run client(4);
-    run client(5);
+    int i;
+    for(i:1..5){
+        run client(i)
+    }
 }

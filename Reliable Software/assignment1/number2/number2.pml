@@ -1,28 +1,30 @@
 int x=0;
 
-active proctype P(){
-    int k=1;
+proctype P(){
+    int k;
     int loc;
 
-    do 
-    :: atomic{
-        k <= 5 ->
-            loc = x;
-            loc++;
-            x = loc;
-            k++;
-    }
-    od
-
-    // for(k:1..5){
-    //     loc = x;
-    //     loc++;
-    //     x = loc;
+    // do 
+    // :: atomic{
+    //     k <= 5 ->
+    //         loc = x;
+    //         loc++;
+    //         x = loc;
+    //         k++;
     // }
+    // od
+
+    for(k:1..5){
+        loc = x;
+        loc++;
+        x = loc;
+
+        printf("x = %d\n",x)
+    }
 }
 
-active proctype check(){
-    assert(x==3 || x < 3)
+proctype check(){
+    assert(x == 3 || x > 3)
 }
 
 init{
