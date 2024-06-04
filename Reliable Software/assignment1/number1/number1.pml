@@ -19,7 +19,7 @@ proctype thread1(){
     printf("x = %d, y = %d\n",x,y)
 }
 
-proctype thread2(){
+active proctype thread2(){
     do 
     :: (x==y) ->
             x=8;
@@ -45,5 +45,6 @@ active proctype checkState(){
 init{
     run thread1();
     run thread2();
+
 	run checkState();
 }

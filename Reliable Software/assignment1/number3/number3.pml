@@ -6,8 +6,8 @@ mtype = {message};
 ** connection -> P3-P1
 **/ 
 chan connection1 = [1] of {int};
-chan connection2 = [2] of {int};
-chan connection3 = [3] of {int};
+chan connection2 = [1] of {int};
+chan connection3 = [1] of {int};
 
 int a1 = 5;
 int a2 = 6;
@@ -18,9 +18,11 @@ int b3;
 
 int max_date = 0;
 
-int Foi(int ai, int bi, int t){
-    if (t < bi) return bi;
-    return ((t - b1 + ai - 1)/ ai ) * ai + bi
+inline Fi(int ai, int bi, int t, int res){
+    if 
+    :: t < bi -> res = bi;
+    :: else -> res = ((t - bi + ai - 1) / ai) * ai + bi;
+    fi
 }
 
 active proctype P1(){ 
@@ -28,7 +30,7 @@ active proctype P1(){
     int received_from3;
 
     do 
-    :: date1 = Foi(a1,b1,date1);
+    :: Fi(a1, b1, date1, );
         connection1 ! date1;
         connection3 ? received_from3;
 
