@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define TAB_SIZE 100
+#define TAB_SIZE 53
 
 typedef struct Table{
     char *name;
@@ -19,17 +19,21 @@ int calc_hash(char* name){
     return hash_val % TAB_SIZE;   
 }
 
-Table* lookup_table(char* name){
-    Table* pe;
-    for (pe=tab[calc_hash(name)]; pe!=NULL; pe=pe->next){
-        if(strcmp(pe->name, name) == 0)
-            return pe;
-    }
-}
-
 int main(void){
-    printf("%d\n", calc_hash("computer"));
-    printf("%d", calc_hash("Waseda"));
+    char string1[10], string2[10], string3[10];
+
+    printf("string 1: ");
+    scanf("%s", string1);
+
+    printf("string 2: ");
+    scanf("%s", string2);
+
+    printf("string 3: ");
+    scanf("%s", string3);
+
+    printf("string %s, hash value: %d\n", string1,calc_hash(string1));
+    printf("string %s, hash value: %d\n", string2,calc_hash(string2));
+    printf("string %s, hash value: %d", string3,calc_hash(string3));
 
     return 0;
 }
