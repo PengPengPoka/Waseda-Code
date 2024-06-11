@@ -119,6 +119,10 @@ traverse_ast_stm(AST_Node *s, int pass)
         traverse_ast_exp(s->child[2], pass);
         traverse_ast_stm(s->child[3], pass);
         break;
+    case AST_STM_DOWHILE:
+        traverse_ast_exp(s->child[0], pass);
+        traverse_ast_stm(s->child[1], pass);
+        break;
 /* REPORT3
    このあたりにdo-while文ノード用のレジスタ割り付け巡回処理を追加する
    Add traverse code for register assignment to do-while statement
@@ -466,10 +470,15 @@ gen_stm_for(FILE *out, AST_Node *s)
 void
 gen_stm_dowhile(FILE *out, AST_Node *s)
 {
-    /* REPORT3
-       ここにdo-while文のコード生成処理を追加する
-       Add code-generation code for do-while
-    */
+    int l_begin, l_cmp;
+    l_begin = get_label();
+    l_cmp = get_label();
+    gen_label_stm(out, l_begin);
+    gen_stm(out, s->child[1]);
+    gen_exp(out, s->child[0]);
+    gen_stm_rel(out, s->child[0], l_cmp);
+    gen_insn_jmp(out, gen_label(l_begin));
+    gen_label_stm(out, l_cmp);
 }
 
 void

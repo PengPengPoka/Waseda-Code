@@ -30,6 +30,9 @@ extern AST_Node  *act_for_stm(AST_Node *e1, AST_Node *e2, AST_Node *e3, AST_Node
    ここにアクション関数のプロトタイプ宣言を追加する
    Add function prototype declaration(s)
 */
+
+// extern AST_Node 
+
 extern AST_Node  *act_return_stm(AST_Node *e);
 extern AST_List  *act_block_item(AST_Node *s);
 extern AST_List  *act_block_item_list(AST_List *l, AST_Node *item);
