@@ -217,8 +217,15 @@ dump_ast_stm(AST_Node *s)
         indent_count--;
         indent();
         break;
-    // case AST_STM_DOWHILE:
-    //     gen_stm_dowhile(out,s)
+    case AST_STM_DOWHILE:
+        fputs("\n", stderr);
+        indent_count++;
+        dump_ast_stm(s->child[0]);
+        indent();
+        dump_ast_exp(s->child[1]);
+        indent_count--;
+        indent();
+        break;
         /* REPORT3
          * このあたりにdo-whileノード用のダンプ処理を追加する
          * Add output dump code for do-while here

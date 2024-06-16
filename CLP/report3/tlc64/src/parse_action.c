@@ -228,6 +228,21 @@ act_for_stm(AST_Node *e1, AST_Node *e2, AST_Node *e3, AST_Node *s)
 */
 
 AST_Node*
+act_dowhile_stm(AST_Node *s, AST_Node *e){
+    AST_Node *ret = create_AST_Stm(AST_STM_DOWHILE, yylineno);
+    ret->child[0] = s;
+    ret->child[1] = e;
+
+    if(s != NULL){
+        s->parent = ret;
+    }
+    if(e != NULL){
+        e->parent = ret;
+    }
+    return ret;
+}
+
+AST_Node*
 act_return_stm(AST_Node *e)
 {
     AST_Node *ret = create_AST_Stm(AST_STM_RETURN, yylineno);

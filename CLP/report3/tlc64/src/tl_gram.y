@@ -250,6 +250,8 @@ iteration_statement
     このあたりにdo-while文のルールを追加する
     Add a rule for do-while statement
  */
+	| TOKEN_DO statement TOKEN_WHILE TOKEN_LPAREN expression TOKEN_RPAREN TOKEN_SEMICOLON
+	{ $$ = act_dowhile_stm($2, $5); }
 
 return_statement
 	: TOKEN_RETURN expression TOKEN_SEMICOLON

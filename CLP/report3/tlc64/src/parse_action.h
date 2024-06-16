@@ -31,7 +31,7 @@ extern AST_Node  *act_for_stm(AST_Node *e1, AST_Node *e2, AST_Node *e3, AST_Node
    Add function prototype declaration(s)
 */
 
-// extern AST_Node 
+extern AST_Node *act_dowhile_stm(AST_Node *s, AST_Node *e);
 
 extern AST_Node  *act_return_stm(AST_Node *e);
 extern AST_List  *act_block_item(AST_Node *s);
