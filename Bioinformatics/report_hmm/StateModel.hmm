@@ -1,0 +1,46 @@
+#STOCHHMM MODEL FILE
+MODEL INFORMATION
+======================================================
+MODEL_NAME: AWAKE_ASLEEP_MODEL
+MODEL_DESCRIPTION: Noise and Quiet Emission Probabilities
+MODEL_CREATION_DATE: June 28, 2024
+
+TRACK SYMBOL DEFINITIONS
+======================================================
+SOUND: Noise,Quiet
+
+STATE DEFINITIONS
+#############################################
+STATE:
+    NAME: INIT
+TRANSITION: STANDARD: P(X)
+    AWAKE: 0.5
+    ASLEEP: 0.5
+#############################################
+STATE:
+    NAME: AWAKE
+    PATH_LABEL: A
+    GFF_DESC: Awake
+TRANSITION: STANDARD: P(X)
+    AWAKE: 0.6
+    ASLEEP: 0.4
+    END: 1
+EMISSION: SOUND: P(X)
+    ORDER: 0
+@Noise Quiet
+0.5 0.5
+#############################################
+STATE:
+    NAME: ASLEEP
+    PATH_LABEL: S
+    GFF_DESC: Asleep
+TRANSITION: STANDARD: P(X)
+    AWAKE: 0.2
+    ASLEEP: 0.8
+    END: 1
+EMISSION: SOUND: P(X)
+    ORDER: 0
+@Noise Quiet
+0.1 0.9
+#############################################
+//END
